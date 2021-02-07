@@ -1,14 +1,13 @@
 import 'dart:io';
 
-import 'package:apscriptapp/pages/resume.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'pages/resume.dart';
 
-void main() {
-  runApp(MyApp());
-}
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -19,86 +18,93 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
+class MyHomePage extends StatelessWidget {
   final pdf = pw.Document();
+
   writeOnPdf() {
-    pdf.addPage(
-      pw.MultiPage(
-          pageFormat: PdfPageFormat.a4,
-          margin: pw.EdgeInsets.all(32),
-          build: (pw.Context context) {
-            return <pw.Widget>[
-              pw.Header(
-                level: 0,
-                child: pw.Text('Resume'),
-              ),
-              pw.Paragraph(
-                  text:
-                      'Officia sit laborum mollit cupidatat sit tempor fugiat sint veniam magna officia aliquip Lorem eu. Enim dolore cupidatat incididunt excepteur nulla duis laborum proident ex aliquip anim enim quis. Qui et incididunt culpa nostrud fugiat. Reprehenderit qui ad et deserunt enim laboris nulla incididunt et enim aliqua. Irure aliquip amet et sunt irure aliquip fugiat dolor culpa ipsum. Ullamco eiusmod aliqua sit id laborum mollit Lorem ad enim.'),
-              pw.Paragraph(
-                  text:
-                      'Officia sit laborum mollit cupidatat sit tempor fugiat sint veniam magna officia aliquip Lorem eu. Enim dolore cupidatat incididunt excepteur nulla duis laborum proident ex aliquip anim enim quis. Qui et incididunt culpa nostrud fugiat. Reprehenderit qui ad et deserunt enim laboris nulla incididunt et enim aliqua. Irure aliquip amet et sunt irure aliquip fugiat dolor culpa ipsum. Ullamco eiusmod aliqua sit id laborum mollit Lorem ad enim.'),
-              pw.Paragraph(
-                  text:
-                      'Officia sit laborum mollit cupidatat sit tempor fugiat sint veniam magna officia aliquip Lorem eu. Enim dolore cupidatat incididunt excepteur nulla duis laborum proident ex aliquip anim enim quis. Qui et incididunt culpa nostrud fugiat. Reprehenderit qui ad et deserunt enim laboris nulla incididunt et enim aliqua. Irure aliquip amet et sunt irure aliquip fugiat dolor culpa ipsum. Ullamco eiusmod aliqua sit id laborum mollit Lorem ad enim.'),
-            ];
-          }),
-    );
+    pdf.addPage(pw.MultiPage(
+      pageFormat: PdfPageFormat.a5,
+      margin: pw.EdgeInsets.all(32),
+      build: (pw.Context context) {
+        return <pw.Widget>[
+          pw.Header(level: 0, child: pw.Text("Easy Approach Document")),
+          pw.Paragraph(
+              text:
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Malesuada fames ac turpis egestas sed tempus urna. Quisque sagittis purus sit amet. A arcu cursus vitae congue mauris rhoncus aenean vel elit. Ipsum dolor sit amet consectetur adipiscing elit pellentesque. Viverra justo nec ultrices dui sapien eget mi proin sed."),
+          pw.Paragraph(
+              text:
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Malesuada fames ac turpis egestas sed tempus urna. Quisque sagittis purus sit amet. A arcu cursus vitae congue mauris rhoncus aenean vel elit. Ipsum dolor sit amet consectetur adipiscing elit pellentesque. Viverra justo nec ultrices dui sapien eget mi proin sed."),
+          pw.Header(level: 1, child: pw.Text("Second Heading")),
+          pw.Paragraph(
+              text:
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Malesuada fames ac turpis egestas sed tempus urna. Quisque sagittis purus sit amet. A arcu cursus vitae congue mauris rhoncus aenean vel elit. Ipsum dolor sit amet consectetur adipiscing elit pellentesque. Viverra justo nec ultrices dui sapien eget mi proin sed."),
+          pw.Paragraph(
+              text:
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Malesuada fames ac turpis egestas sed tempus urna. Quisque sagittis purus sit amet. A arcu cursus vitae congue mauris rhoncus aenean vel elit. Ipsum dolor sit amet consectetur adipiscing elit pellentesque. Viverra justo nec ultrices dui sapien eget mi proin sed."),
+          pw.Paragraph(
+              text:
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Malesuada fames ac turpis egestas sed tempus urna. Quisque sagittis purus sit amet. A arcu cursus vitae congue mauris rhoncus aenean vel elit. Ipsum dolor sit amet consectetur adipiscing elit pellentesque. Viverra justo nec ultrices dui sapien eget mi proin sed."),
+        ];
+      },
+    ));
   }
 
-  Future savepdf() async {
+  Future savePdf() async {
     Directory documentDirectory = await getApplicationDocumentsDirectory();
+
     String documentPath = documentDirectory.path;
-    File file = File('$documentPath/example.pdf');
+
+    File file = File("$documentPath/example.pdf");
+
     file.writeAsBytesSync(await pdf.save());
   }
 
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
+      appBar: AppBar(
+        title: Text("Resume"),
+      ),
+
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              "Tring pdf",
+              style: TextStyle(fontSize: 34),
+            )
+          ],
         ),
-        body: Container(
-          width: double.infinity,
-          height: double.infinity,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'pdf tuturial',
-                style: TextStyle(fontSize: 34),
-              )
-            ],
-          ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () async {
-            writeOnPdf();
-            await savepdf();
-            Directory documentDirectory =
-                await getApplicationDocumentsDirectory();
-            String documentPath = documentDirectory.path;
-            String fullPath = '$documentPath/example.pdf';
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => PdfPreview(path: fullPath)));
-          },
-          child: Icon(Icons.save),
-        ));
+      ),
+
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          writeOnPdf();
+          await savePdf();
+
+          Directory documentDirectory =
+              await getApplicationDocumentsDirectory();
+
+          String documentPath = documentDirectory.path;
+
+          String fullPath = "$documentPath/example.pdf";
+
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => PdfPreviewScreen(
+                        path: fullPath,
+                      )));
+        },
+        child: Icon(Icons.save),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
   }
 }
