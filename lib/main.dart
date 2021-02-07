@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:apscriptapp/pages/page1.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: MyHomePage(),
+      // home: PageOne(),
     );
   }
 }
@@ -66,21 +68,13 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Resume"),
+        title: Text(
+          "Resume",
+        ),
         backgroundColor: Colors.red,
       ),
       body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              "Tring pdf",
-              style: TextStyle(fontSize: 34),
-            )
-          ],
-        ),
+        child: PageOne(),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
