@@ -67,6 +67,7 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Resume"),
+        backgroundColor: Colors.red,
       ),
       body: Container(
         width: double.infinity,
