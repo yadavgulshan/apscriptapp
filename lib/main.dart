@@ -10,7 +10,6 @@ import 'pages/resume.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -69,7 +68,6 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text("Resume"),
       ),
-
       body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -83,7 +81,6 @@ class MyHomePage extends StatelessWidget {
           ],
         ),
       ),
-
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           writeOnPdf();
@@ -104,7 +101,7 @@ class MyHomePage extends StatelessWidget {
                       )));
         },
         child: Icon(Icons.save),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }
