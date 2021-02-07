@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:apscriptapp/pages/resume.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
@@ -45,21 +46,24 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: pw.Text('Resume'),
               ),
               pw.Paragraph(
-                text: 'Officia sit laborum mollit cupidatat sit tempor fugiat sint veniam magna officia aliquip Lorem eu. Enim dolore cupidatat incididunt excepteur nulla duis laborum proident ex aliquip anim enim quis. Qui et incididunt culpa nostrud fugiat. Reprehenderit qui ad et deserunt enim laboris nulla incididunt et enim aliqua. Irure aliquip amet et sunt irure aliquip fugiat dolor culpa ipsum. Ullamco eiusmod aliqua sit id laborum mollit Lorem ad enim.'
-              ),          
+                  text:
+                      'Officia sit laborum mollit cupidatat sit tempor fugiat sint veniam magna officia aliquip Lorem eu. Enim dolore cupidatat incididunt excepteur nulla duis laborum proident ex aliquip anim enim quis. Qui et incididunt culpa nostrud fugiat. Reprehenderit qui ad et deserunt enim laboris nulla incididunt et enim aliqua. Irure aliquip amet et sunt irure aliquip fugiat dolor culpa ipsum. Ullamco eiusmod aliqua sit id laborum mollit Lorem ad enim.'),
               pw.Paragraph(
-                text: 'Officia sit laborum mollit cupidatat sit tempor fugiat sint veniam magna officia aliquip Lorem eu. Enim dolore cupidatat incididunt excepteur nulla duis laborum proident ex aliquip anim enim quis. Qui et incididunt culpa nostrud fugiat. Reprehenderit qui ad et deserunt enim laboris nulla incididunt et enim aliqua. Irure aliquip amet et sunt irure aliquip fugiat dolor culpa ipsum. Ullamco eiusmod aliqua sit id laborum mollit Lorem ad enim.'
-              ),         
+                  text:
+                      'Officia sit laborum mollit cupidatat sit tempor fugiat sint veniam magna officia aliquip Lorem eu. Enim dolore cupidatat incididunt excepteur nulla duis laborum proident ex aliquip anim enim quis. Qui et incididunt culpa nostrud fugiat. Reprehenderit qui ad et deserunt enim laboris nulla incididunt et enim aliqua. Irure aliquip amet et sunt irure aliquip fugiat dolor culpa ipsum. Ullamco eiusmod aliqua sit id laborum mollit Lorem ad enim.'),
               pw.Paragraph(
-                text: 'Officia sit laborum mollit cupidatat sit tempor fugiat sint veniam magna officia aliquip Lorem eu. Enim dolore cupidatat incididunt excepteur nulla duis laborum proident ex aliquip anim enim quis. Qui et incididunt culpa nostrud fugiat. Reprehenderit qui ad et deserunt enim laboris nulla incididunt et enim aliqua. Irure aliquip amet et sunt irure aliquip fugiat dolor culpa ipsum. Ullamco eiusmod aliqua sit id laborum mollit Lorem ad enim.'
-              ),        
+                  text:
+                      'Officia sit laborum mollit cupidatat sit tempor fugiat sint veniam magna officia aliquip Lorem eu. Enim dolore cupidatat incididunt excepteur nulla duis laborum proident ex aliquip anim enim quis. Qui et incididunt culpa nostrud fugiat. Reprehenderit qui ad et deserunt enim laboris nulla incididunt et enim aliqua. Irure aliquip amet et sunt irure aliquip fugiat dolor culpa ipsum. Ullamco eiusmod aliqua sit id laborum mollit Lorem ad enim.'),
             ];
           }),
     );
   }
-  Future savepdf()async{
-    Directory documentDirectory  = await getApplicationDocumentsDirectory();
+
+  Future savepdf() async {
+    Directory documentDirectory = await getApplicationDocumentsDirectory();
     String documentPath = documentDirectory.path;
+    File file = File('$documentPath/example.pdf');
+    file.writeAsBytesSync(await pdf.save());
   }
 
   @override
@@ -82,8 +86,17 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            showDialog(context: context, builder: builder)
+          onPressed: () async {
+            writeOnPdf();
+            await savepdf();
+            Directory documentDirectory =
+                await getApplicationDocumentsDirectory();
+            String documentPath = documentDirectory.path;
+            String fullPath = '$documentPath/example.pdf';
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => PdfPreview(path: fullPath)));
           },
           child: Icon(Icons.save),
         ));
