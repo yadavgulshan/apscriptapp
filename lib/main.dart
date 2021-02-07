@@ -1,4 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
 
 void main() {
   runApp(MyApp());
@@ -20,7 +25,6 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
-
   final String title;
 
   @override
@@ -28,7 +32,35 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  final pdf = pw.Document();
+  writeOnPdf() {
+    pdf.addPage(
+      pw.MultiPage(
+          pageFormat: PdfPageFormat.a4,
+          margin: pw.EdgeInsets.all(32),
+          build: (pw.Context context) {
+            return <pw.Widget>[
+              pw.Header(
+                level: 0,
+                child: pw.Text('Resume'),
+              ),
+              pw.Paragraph(
+                text: 'Officia sit laborum mollit cupidatat sit tempor fugiat sint veniam magna officia aliquip Lorem eu. Enim dolore cupidatat incididunt excepteur nulla duis laborum proident ex aliquip anim enim quis. Qui et incididunt culpa nostrud fugiat. Reprehenderit qui ad et deserunt enim laboris nulla incididunt et enim aliqua. Irure aliquip amet et sunt irure aliquip fugiat dolor culpa ipsum. Ullamco eiusmod aliqua sit id laborum mollit Lorem ad enim.'
+              ),          
+              pw.Paragraph(
+                text: 'Officia sit laborum mollit cupidatat sit tempor fugiat sint veniam magna officia aliquip Lorem eu. Enim dolore cupidatat incididunt excepteur nulla duis laborum proident ex aliquip anim enim quis. Qui et incididunt culpa nostrud fugiat. Reprehenderit qui ad et deserunt enim laboris nulla incididunt et enim aliqua. Irure aliquip amet et sunt irure aliquip fugiat dolor culpa ipsum. Ullamco eiusmod aliqua sit id laborum mollit Lorem ad enim.'
+              ),         
+              pw.Paragraph(
+                text: 'Officia sit laborum mollit cupidatat sit tempor fugiat sint veniam magna officia aliquip Lorem eu. Enim dolore cupidatat incididunt excepteur nulla duis laborum proident ex aliquip anim enim quis. Qui et incididunt culpa nostrud fugiat. Reprehenderit qui ad et deserunt enim laboris nulla incididunt et enim aliqua. Irure aliquip amet et sunt irure aliquip fugiat dolor culpa ipsum. Ullamco eiusmod aliqua sit id laborum mollit Lorem ad enim.'
+              ),        
+            ];
+          }),
+    );
+  }
+  Future savepdf()async{
+    Directory documentDirectory  = await getApplicationDocumentsDirectory();
+    String documentPath = documentDirectory.path;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,15 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Dialog(
-                child: Column(
-              children: [
-                Text('hey'),
-                TextButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: Text('fuck you'))
-              ],
-            ));
+            showDialog(context: context, builder: builder)
           },
           child: Icon(Icons.save),
         ));
